@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wormleybury Freehold Purchase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .step {
+            transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.7s ease-in-out;
+        }
+        .step-hidden-up { transform: translateY(-100vh); opacity: 0; pointer-events: none; }
+        .step-hidden-down { transform: translateY(100vh); opacity: 0; pointer-events: none; }
+        .step-active { transform: translateY(0); opacity: 1; pointer-events: auto; z-index: 10; }
+        
+        input, textarea {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #475569;
+            font-size: 2rem;
+            color: white;
+            padding: 0.5rem 0;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus { border-color: #10b981; }
+        input::placeholder, textarea::placeholder { color: #475569; }
+        
+        .btn {
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 2rem;
+            font-size: 1.25rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            font-weight: 600;
+        }
+        .btn:hover { background: #059669; }
+        .btn:active { transform: scale(0.98); }
+        
+        .progress-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #1e293b;
+            z-index: 50;
+        }
+        #progress {
+            height: 100%;
+            background: #10b981;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div id="progress"></div>
+    </div>
+
+    <form id="pledgeForm" action="https://script.google.com/macros/s/AKfycbx9xxTwq9bkHrako8w3G6MxsM4GIWZajilGnQXEaOam50KjeMqL1mJV_zVnLoCiO-EwcA/exec" method="POST" class="relative w-screen h-screen">
+        
+        <!-- Step 0: Intro -->
+        <div class="step step-active absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <h1 class="text-4xl md:text-6xl font-semibold mb-6 leading-tight text-emerald-400">Wormleybury Freehold Purchase</h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
+                We have a rare opportunity to secure the Freehold of the historic Wormleybury estate grounds. We are looking to raise between <strong>£300,000 and £500,000</strong> amongst residents to purchase this and protect the future of our surroundings.
+            </p>
+            <p class="text-lg text-slate-400 mb-10">
+                This pledge is 100% anonymous. Your details are kept strictly confidential, and you may leave personal fields blank to remain completely unidentified.
+            </p>
+            <button type="button" class="btn next-btn flex items-center gap-2" onclick="nextStep()">
+                I'd like to pledge 
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </button>
+            <p class="mt-4 text-sm text-slate-500">Press <strong>Enter ↵</strong></p>
+        </div>
+
+        <!-- Step 1: Name -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <label class="text-2xl md:text-3xl font-light mb-6 flex items-center gap-4">
+                <span class="text-emerald-500 font-semibold text-lg">1 →</span> What is your name? <span class="text-sm text-slate-500 ml-2">(Optional)</span>
+            </label>
+            <input type="text" name="name" placeholder="John Doe">
+            <button type="button" class="btn next-btn mt-8" onclick="nextStep()">OK</button>
+        </div>
+
+        <!-- Step 2: Address -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <label class="text-2xl md:text-3xl font-light mb-6 flex items-center gap-4">
+                <span class="text-emerald-500 font-semibold text-lg">2 →</span> What is your address? <span class="text-sm text-slate-500 ml-2">(Optional)</span>
+            </label>
+            <input type="text" name="address" placeholder="123 Wormleybury...">
+            <button type="button" class="btn next-btn mt-8" onclick="nextStep()">OK</button>
+        </div>
+
+        <!-- Step 3: Email -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <label class="text-2xl md:text-3xl font-light mb-6 flex items-center gap-4">
+                <span class="text-emerald-500 font-semibold text-lg">3 →</span> What is your email address? <span class="text-sm text-slate-500 ml-2">(Optional)</span>
+            </label>
+            <input type="email" name="email" placeholder="name@example.com">
+            <button type="button" class="btn next-btn mt-8" onclick="nextStep()">OK</button>
+        </div>
+
+        <!-- Step 4: Phone -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <label class="text-2xl md:text-3xl font-light mb-6 flex items-center gap-4">
+                <span class="text-emerald-500 font-semibold text-lg">4 →</span> What is your phone number? <span class="text-sm text-slate-500 ml-2">(Optional)</span>
+            </label>
+            <input type="tel" name="phone" placeholder="07...">
+            <button type="button" class="btn next-btn mt-8" onclick="nextStep()">OK</button>
+        </div>
+
+        <!-- Step 5: Pledge Amount -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <label class="text-2xl md:text-3xl font-light mb-6 flex items-center gap-4">
+                <span class="text-emerald-500 font-semibold text-lg">5 →</span> How much would you like to pledge? *
+            </label>
+            <p class="text-slate-400 mb-4">Please enter a numerical amount in GBP (£).</p>
+            <input type="text" name="pledge" placeholder="£5,000" required>
+            <button type="button" class="btn next-btn mt-8" onclick="nextStep()">OK</button>
+        </div>
+
+        <!-- Step 6: Opinion/Views -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6">
+            <label class="text-2xl md:text-3xl font-light mb-6 flex items-center gap-4">
+                <span class="text-emerald-500 font-semibold text-lg">6 →</span> Do you have any opinions or views on the steps forward? <span class="text-sm text-slate-500 ml-2">(Optional)</span>
+            </label>
+            <textarea name="opinion" rows="2" placeholder="Type your thoughts here..."></textarea>
+            <button type="submit" class="btn next-btn mt-8">Submit Pledge</button>
+            <p class="mt-4 text-sm text-slate-500">Pressing Enter will add a new line. Click Submit when ready.</p>
+        </div>
+
+        <!-- Step 7: Submitting State -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-center w-full h-full max-w-3xl mx-auto px-6 text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-emerald-500 mb-6"></div>
+            <h2 class="text-3xl font-light">Securely sending your pledge...</h2>
+        </div>
+
+        <!-- Step 8: Success State -->
+        <div class="step step-hidden-down absolute inset-0 flex flex-col justify-center items-center w-full h-full max-w-3xl mx-auto px-6 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-emerald-500 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <h2 class="text-4xl md:text-5xl font-semibold mb-4 text-white">Thank you!</h2>
+            <p class="text-xl text-slate-400">Your anonymous pledge has been securely recorded.</p>
+        </div>
+
+    </form>
+
+    <script>
+        let currentStep = 0;
+        const steps = document.querySelectorAll('.step');
+        const progressBar = document.getElementById('progress');
+
+        function updateSteps() {
+            steps.forEach((step, index) => {
+                if (index === currentStep) {
+                    step.className = 'step step-active absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6';
+                    // Auto-focus the input if it exists
+                    const input = step.querySelector('input, textarea');
+                    if (input) setTimeout(() => input.focus(), 600);
+                } else if (index < currentStep) {
+                    step.className = 'step step-hidden-up absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6';
+                } else {
+                    step.className = 'step step-hidden-down absolute inset-0 flex flex-col justify-center items-start w-full h-full max-w-3xl mx-auto px-6';
+                }
+                
+                // Keep success states centered
+                if (index >= 6) {
+                    step.classList.remove('items-start');
+                    step.classList.add('items-center', 'text-center');
+                }
+            });
+
+            // Calculate progress bar (only for question steps 1 to 6)
+            if (currentStep > 0 && currentStep <= 6) {
+                progressBar.style.width = ((currentStep) / 6) * 100 + '%';
+            } else if (currentStep > 6) {
+                progressBar.style.width = '100%';
+            } else {
+                progressBar.style.width = '0%';
+            }
+        }
+
+        function nextStep() {
+            // Validation for required fields before moving forward
+            const activeInput = steps[currentStep].querySelector('input[required]');
+            if (activeInput && !activeInput.value.trim()) {
+                activeInput.style.borderColor = '#ef4444';
+                activeInput.focus();
+                return;
+            }
+            if (activeInput) activeInput.style.borderColor = '#10b981';
+
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateSteps();
+            }
+        }
+
+        // Handle Enter key for rapid progression
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const activeElement = document.activeElement;
+                // Allow normal enter behavior inside textarea
+                if (activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    const currentBtn = steps[currentStep].querySelector('.next-btn');
+                    if (currentBtn) currentBtn.click();
+                }
+            }
+        });
+
+        // Intercept form submission to prevent messy Google Script redirect
+        const form = document.getElementById('pledgeForm');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            // Move to "Submitting" loading step
+            nextStep(); 
+
+            // Send to Google Apps Script endpoint silently
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                mode: 'no-cors' // Crucial: prevents CORS errors in the browser when posting to Apps Script
+            }).then(() => {
+                // Move to "Success" final step
+                nextStep(); 
+            }).catch(error => {
+                console.error('Error!', error.message);
+                alert("There was an issue submitting your pledge. Please check your connection and try again.");
+            });
+        });
+
+        // Initialize state
+        updateSteps();
+    </script>
+</body>
+</html>
