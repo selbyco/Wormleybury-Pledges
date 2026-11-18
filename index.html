@@ -132,7 +132,38 @@
                 <span class="text-emerald-500 font-semibold text-lg">5 →</span> How much would you like to pledge? *
             </label>
             <p class="text-slate-400 mb-4">Please enter a numerical amount in GBP (£).</p>
-            <input type="text" name="pledge" placeholder="£5,000" required>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full mb-8">
+  <label class="cursor-pointer">
+    <input type="radio" name="pledge_radio" value="0" class="peer sr-only" onclick="document.getElementById('pledgeAmount').value = this.value; document.getElementById('custom-container').classList.add('hidden');">
+    <div class="rounded-xl border-2 border-slate-600 bg-slate-800/50 p-4 text-center hover:border-emerald-400 peer-checked:border-emerald-400 peer-checked:bg-emerald-400/20 transition-all text-white font-semibold">£0</div>
+  </label>
+  <label class="cursor-pointer">
+    <input type="radio" name="pledge_radio" value="5000" class="peer sr-only" onclick="document.getElementById('pledgeAmount').value = this.value; document.getElementById('custom-container').classList.add('hidden');">
+    <div class="rounded-xl border-2 border-slate-600 bg-slate-800/50 p-4 text-center hover:border-emerald-400 peer-checked:border-emerald-400 peer-checked:bg-emerald-400/20 transition-all text-white font-semibold">£5,000</div>
+  </label>
+  <label class="cursor-pointer">
+    <input type="radio" name="pledge_radio" value="10000" class="peer sr-only" onclick="document.getElementById('pledgeAmount').value = this.value; document.getElementById('custom-container').classList.add('hidden');">
+    <div class="rounded-xl border-2 border-slate-600 bg-slate-800/50 p-4 text-center hover:border-emerald-400 peer-checked:border-emerald-400 peer-checked:bg-emerald-400/20 transition-all text-white font-semibold">£10,000</div>
+  </label>
+  <label class="cursor-pointer">
+    <input type="radio" name="pledge_radio" value="20000" class="peer sr-only" onclick="document.getElementById('pledgeAmount').value = this.value; document.getElementById('custom-container').classList.add('hidden');">
+    <div class="rounded-xl border-2 border-slate-600 bg-slate-800/50 p-4 text-center hover:border-emerald-400 peer-checked:border-emerald-400 peer-checked:bg-emerald-400/20 transition-all text-white font-semibold">£20,000</div>
+  </label>
+  <label class="cursor-pointer">
+    <input type="radio" name="pledge_radio" value="40000" class="peer sr-only" onclick="document.getElementById('pledgeAmount').value = this.value; document.getElementById('custom-container').classList.add('hidden');">
+    <div class="rounded-xl border-2 border-slate-600 bg-slate-800/50 p-4 text-center hover:border-emerald-400 peer-checked:border-emerald-400 peer-checked:bg-emerald-400/20 transition-all text-white font-semibold">£40,000</div>
+  </label>
+  <label class="cursor-pointer">
+    <input type="radio" name="pledge_radio" value="custom" class="peer sr-only" onclick="document.getElementById('pledgeAmount').value = ''; document.getElementById('custom-container').classList.remove('hidden'); document.getElementById('pledgeAmount').focus();">
+    <div class="rounded-xl border-2 border-slate-600 bg-slate-800/50 p-4 text-center hover:border-emerald-400 peer-checked:border-emerald-400 peer-checked:bg-emerald-400/20 transition-all text-white font-semibold">Custom Amount</div>
+  </label>
+</div>
+
+<!-- This input stores the final value for submission. It reveals itself if "Custom" is selected. -->
+<div id="custom-container" class="hidden w-full mb-6">
+  <input type="number" id="pledgeAmount" name="pledgeAmount" placeholder="Enter custom amount (£)" class="w-full bg-transparent border-b-2 border-slate-500 focus:border-emerald-400 text-2xl py-2 outline-none text-white transition-colors">
+</div>
+
             <button type="button" class="btn next-btn mt-8" onclick="nextStep()">OK</button>
         </div>
 
